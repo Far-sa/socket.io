@@ -11,11 +11,23 @@ const io = socketIO(server, {
   }
 })
 
-io.on('connection', socket => {
-  socket.on('welcome', data => {
-    console.log(data)
-  })
-  socket.emit('welcome-Client', 'Hello Client')
+//? broadcast a connection
+io.on('connection', () => {
+  io.emit('broadcast', 'Hello Everyone')
 })
 
-server.listen(3000, () => console.log('Server ran at port 3000'))
+io.of('/teachers').on('connection', socket => {
+  socket.on('teachersClient', data => {
+    console.log(data)
+  })
+  socket.emit('welcome-teachers', 'Hello Teachers')
+})
+
+io.of('/students').on('connection', socket => {
+  socket.on('studentsClient', data => {
+    console.log(data)
+  })
+  socket.emit('welcome-students', 'Hello Students')
+})
+
+server.listen(3000, () => console.log('Server is running on port 3000'))
