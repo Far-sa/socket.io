@@ -12,8 +12,9 @@ const io = socketIO(server, {
 })
 
 io.on('connection', socket => {
-  console.log(socket.handshake.query)
-  console.log(socket.handshake.headers)
+  socket.on('clientMessage', data => {
+    io.emit('serverMessage', data)
+  })
 })
 
 server.listen(3000, () => console.log('Server is running on port 3000'))
