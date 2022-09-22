@@ -11,23 +11,9 @@ const io = socketIO(server, {
   }
 })
 
-//? broadcast a connection
-io.on('connection', () => {
-  io.emit('broadcast', 'Hello Everyone')
-})
-
-io.of('/teachers').on('connection', socket => {
-  socket.on('teachersClient', data => {
-    console.log(data)
-  })
-  socket.emit('welcome-teachers', 'Hello Teachers')
-})
-
-io.of('/students').on('connection', socket => {
-  socket.on('studentsClient', data => {
-    console.log(data)
-  })
-  socket.emit('welcome-students', 'Hello Students')
+io.on('connection', socket => {
+  console.log(socket.handshake.query)
+  console.log(socket.handshake.headers)
 })
 
 server.listen(3000, () => console.log('Server is running on port 3000'))
