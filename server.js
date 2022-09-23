@@ -21,6 +21,12 @@ io.on('connection', socket => {
   socket.on('ping', data => {
     console.log(data)
   })
+
+  socket.join(['NodeJs', 'NestJs', 'php'])
+  socket.leave('php')
+
+  io.to('NodeJs').emit('You are a new User')
+  console.log(socket.rooms)
 })
 
 server.listen(3000, () => console.log('Server is running on port 3000'))
