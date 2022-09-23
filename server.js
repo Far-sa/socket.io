@@ -15,6 +15,12 @@ io.on('connection', socket => {
   socket.on('clientMessage', data => {
     io.emit('serverMessage', data)
   })
+
+  //? volatile
+  socket.leave('ping')
+  socket.on('ping', data => {
+    console.log(data)
+  })
 })
 
 server.listen(3000, () => console.log('Server is running on port 3000'))

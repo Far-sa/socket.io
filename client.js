@@ -23,6 +23,12 @@ Socket.on('connect', data => {
     Socket.emit('clientMessage', message)
     textBox.value = ''
   })
+
+  //? volatile
+  // let count = 0
+  // setInterval(() => {
+  //   Socket.volatile.emit('ping', ++count)
+  // }, 1000)
 })
 
 Socket.on('serverMessage', message => {
